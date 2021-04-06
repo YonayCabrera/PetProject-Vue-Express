@@ -1,7 +1,6 @@
 <template>
   <div>
-    <v-card
-  >
+    <v-card v-if="user.login">
     <div id="header">
       <div id="avatar">
         <v-avatar>
@@ -12,7 +11,7 @@
         <v-divider vertical></v-divider>
       </div>
       <div id="map">
-        <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
+        <MapContainer :latitude="getLatitude" :longitude="getLongitude"></MapContainer>
       </div>
       <div id="divider">
         <v-divider vertical></v-divider>
@@ -45,48 +44,21 @@
       MapContainer
     },
     data: () => ({
-      user: {
-        picture: {},
-        name: {},
-        location: {street: {}}
-      },
+      user: {},
       uuid: '',
       active: false,
-      geojson: {
-        type: 'Feature',
-        properties: {
-          name: 'default object',
-          quality: 'top'
-        },
-        geometry: {
-          type: 'Polygon',
-          coordinates: [
-            [
-              [
-                -27.0703125,
-                43.58039085560784
-              ],
-              [
-                -28.125,
-                23.563987128451217
-              ],
-              [
-                -10.8984375,
-                32.84267363195431
-              ],
-              [
-                -27.0703125,
-                43.58039085560784
-              ]
-            ]
-          ]
-        }
-      }
     }),
     computed: {
       ...mapGetters({
         getUserByUuid: GET_USER_BY_UUID,
       }),
+      getLatitude() {
+        console.log('gett')
+        return parseFloat(this.user.location.coordinates.latitude)
+      },
+      getLongitude() {
+        return parseFloat(this.user.location.coordinates.longitude)
+      },
       showColorFavourite() {
         if(this.active) return 'yellow darken-3'
         return 'grey lighten-1'
@@ -103,12 +75,13 @@
         this.active = this.user.favorite
       },
     },  
-    created () {
+    async beforeCreate () {
+      console.log('entra')
       this.uuid = this.$route.params.uuid
-      axios.get(`http://localhost:5000/users/${this.uuid}`).then(response => {
-        this.user = response.data
-        this.active = this.user.favorite
-      })
+      var response = await axios.get(`http://localhost:5000/users/${this.uuid}`)
+      this.user = response.data
+      this.active = this.user.favorite
+      console.log('sale')
     }
   }
 </script>
@@ -131,7 +104,7 @@
   }
 
   #map {
-    height: 100px;
+    height: 400px;
     margin: 0 4px;
   }
   #divider {

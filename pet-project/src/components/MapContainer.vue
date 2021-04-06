@@ -1,76 +1,108 @@
 <template>
-  <div ref="map-root"
-       style="width: 100%; height: 100%">
+  <div class="vm">
+    <div id="map" class="map-x"></div>
+    <div
+      class="popup"
+      ref="popup"
+      v-show="currentCoordinate"
+    >
+      <span class="icon-close" @click="closePopup">✖</span>
+      <div class="content">{{currentCoordinate}}</div>
+    </div>
   </div>
 </template>
-
+ 
 <script>
-  import View from 'ol/View'
-  import Map from 'ol/Map'
-  import TileLayer from 'ol/layer/Tile'
-  import OSM from 'ol/source/OSM'
-  import VectorLayer from 'ol/layer/Vector'
-  import VectorSource from 'ol/source/Vector'
-  import GeoJSON from 'ol/format/GeoJSON'
-  import 'ol/ol.css'
-  export default {
-    name: 'MapContainer',
-    components: {},
-    props: {
-      geojson: Object
-    },
-    data: () => ({
-      olMap: null,
-      vectorLayer: null,
-      selectedFeature: null
-    }),
-    mounted() {
-      this.vectorLayer = new VectorLayer({
-        source: new VectorSource({
-          features: [],
-        }),
+import 'ol/ol.css'
+import { Map, View } from 'ol'
+import Tile from 'ol/layer/Tile'
+import OSM from 'ol/source/OSM'
+import { toStringHDMS } from 'ol/coordinate'
+import { toLonLat } from 'ol/proj'
+import Overlay from 'ol/Overlay'
+ 
+export default {
+  name: 'MapContainer',
+  data () {
+    return {
+      map: null,
+      currentCoordinate: null,
+      overlay: null
+    }
+  },
+  props: {
+    latitude: {type: Number, default: 0},
+    longitude: {type: Number, default: 0}
+  },
+  methods: {
+    initMap () {
+      this.overlay = new Overlay({
+                 element: this.$refs.popup,
+                 autoPan: true
       })
-      this.olMap = new Map({
-        target: this.$refs['map-root'],
+      console.log(this.longitude, this.latitude)
+      this.map = new Map({
+        target: 'map',
         layers: [
-          new TileLayer({
-            source: new OSM(),
-          }),
-          this.vectorLayer
+          new Tile({
+            source: new OSM()
+          })
         ],
+        overlays: [this.overlay],
         view: new View({
-          zoom: 0,
-          center: [0, 0],
-          constrainResolution: true
-        }),
+          center: [this.latitude, this.longitude],
+          zoom: 6
+        })
       })
-      this.olMap.on('pointermove', (event) => {
-        const hovered = this.olMap.forEachFeatureAtPixel(event.pixel, (feature) => feature)
-        if (hovered !== this.selectedFeature) {
-          this.$set(this, 'selectedFeature', hovered);
-        }
-      })
-      this.updateSource(this.geojson)
+      const coordinate = [this.latitude, this.longitude]
+      const hdms = toStringHDMS(toLonLat(coordinate))
+      this.currentCoordinate = hdms
+      console.log('currentCoordinate', this.currentCoordinate)
+      setTimeout(() => {
+        this.overlay.setPosition(coordinate)
+      }, 0)
     },
-    watch: {
-      geojson(value) {
-        this.updateSource(value)
-      },
-      selectedFeature(value) {
-        this.$emit('select', value)
-      }
-    },
-    methods: {
-      updateSource(geojson) {
-        const view = this.olMap.getView();
-        const source = this.vectorLayer.getSource();
-        const features = new GeoJSON({
-          featureProjection: 'EPSG:3857',
-        }).readFeatures(geojson);
-        source.clear();
-        source.addFeatures(features);
-        view.fit(source.getExtent())
-      }
+    closePopup () {
+      this.overlay.setPosition(undefined)
+      this.currentCoordinate = null
+    }
+  },
+  mounted () {
+    this.initMap()
+  }
+}
+</script>
+ 
+<style lang="scss" scoped>
+  .popup {
+    min-width: 280px;
+    position: relative;
+    background: #fff;
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    transform: translate(-50%, calc(-100% - 12px));
+ 
+    &::after {
+      display: block;
+      content: '';
+      width: 0;
+      height: 0;
+      position: absolute;
+      border: 12px solid transparent;
+      border-top-color: #fff;
+      bottom: -23px;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
-</script>
+  .icon-close {
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 10px;
+  }
+
+  canvas {
+    height: 100%;
+  }
+</style>
