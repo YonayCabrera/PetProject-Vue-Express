@@ -1,27 +1,31 @@
 <template>
     <div>
-        <v-card class="mx-auto" max-width="500">
-					<div id="personalData" v-for="user in users" :key="user.uuid">
-						{{user.gender}}, {{user.name.first}} {{user.name.last}}, {{user.nat}}, {{user.dob.date}}, {{user.registered.date}}
-					</div>
-					<v-divider></v-divider>
-					<v-btn>
-						<div @click="exportCsv">
-							exportDataIntoCsv
-						</div>
-					</v-btn>
-        </v-card>
+        <card>
+			<div id="personalData" v-for="user in users" :key="user.uuid">
+				{{user.gender}}, {{user.name.first}} {{user.name.last}}, {{user.nat}}, {{user.dob.date}}, {{user.registered.date}}
+			</div>
+			<divider />
+			<basic-button name="exportDataIntoCsv" @onClick="exportCsv"></basic-button>
+        </card>
    </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Divider from './BasicComponents/Divider.vue'
+import Card from './BasicComponents/Card.vue'
+import BasicButton from '../components/BasicComponents/BasicButton.vue';
 export default {
   name: 'ExportCsv',
 	data() {
 		return {
 			users: []
 		}
+	},
+	components: {
+		Divider,
+		Card,
+		BasicButton
 	},
 	methods: {
 		exportCsv() {

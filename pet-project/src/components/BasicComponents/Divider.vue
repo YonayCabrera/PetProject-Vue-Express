@@ -1,9 +1,12 @@
 <template>
-    <v-divider></v-divider>
+    <v-divider :vertical="vertical"></v-divider>
 </template>
 
 <script>
 export default {
-    name:'Divider'
+    name:'Divider',
+    props: {
+        vertical: { type: Boolean, default: false }
+    }
 }
 </script>

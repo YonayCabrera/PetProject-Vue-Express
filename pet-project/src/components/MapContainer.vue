@@ -40,7 +40,6 @@ export default {
                  element: this.$refs.popup,
                  autoPan: true
       })
-      console.log(this.longitude, this.latitude)
       this.map = new Map({
         target: 'map',
         layers: [
@@ -57,7 +56,6 @@ export default {
       const coordinate = [this.latitude, this.longitude]
       const hdms = toStringHDMS(toLonLat(coordinate))
       this.currentCoordinate = hdms
-      console.log('currentCoordinate', this.currentCoordinate)
       setTimeout(() => {
         this.overlay.setPosition(coordinate)
       }, 0)

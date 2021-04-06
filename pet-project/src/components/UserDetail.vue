@@ -1,35 +1,33 @@
 <template>
   <div>
-    <v-card v-if="user.login">
-    <div id="header">
-      <div id="avatar">
-        <v-avatar>
-          <v-img :src="user.picture.thumbnail" />
-        </v-avatar>
+    <card v-if="user.login">
+      <div id="header">
+        <div id="avatar">
+          <avatar :src="user.picture.thumbnail"></avatar>
+        </div>
+        <div id="divider">
+          <divider vertical/>
+        </div>
+        <div id="map">
+          <MapContainer :latitude="getLatitude" :longitude="getLongitude"></MapContainer>
+        </div>
+        <div id="divider">
+          <divider vertical/>
+        </div>
+        <div id="starIcon">
+          <v-icon @click="activeFavourite" :color="showColorFavourite"> mdi-star-outline </v-icon>
+        </div>
       </div>
-      <div id="divider">
-        <v-divider vertical></v-divider>
+      <divider/>
+      <div id="personal-data">
+        Datos personales: {{user.name.first}} {{user.name.last}}, {{user.email}}
       </div>
-      <div id="map">
-        <MapContainer :latitude="getLatitude" :longitude="getLongitude"></MapContainer>
+      <divider/>
+      <div id="personal-data">
+        Datos de localización: {{user.location.city}}, {{user.location.street.street}}, {{user.phone}} - {{user.cell}}
       </div>
-      <div id="divider">
-        <v-divider vertical></v-divider>
-      </div>
-      <div id="starIcon">
-        <v-icon @click="activeFavourite" :color="showColorFavourite"> mdi-star-outline </v-icon>
-      </div>
-    </div>
-    <v-divider></v-divider>
-    <div id="personal-data">
-      Datos personales: {{user.name.first}} {{user.name.last}}, {{user.email}}
-    </div>
-    <v-divider></v-divider>
-    <div id="personal-data">
-      Datos de localización: {{user.location.city}}, {{user.location.street.street}}, {{user.phone}} - {{user.cell}}
-    </div>
     
-  </v-card>
+    </card>
   </div>
 </template>
 
@@ -38,10 +36,16 @@
   import { mapGetters } from 'vuex'
   import {GET_USER_BY_UUID} from '@/store/getters/getterTypes'
   import MapContainer from './MapContainer'
+  import Avatar from './BasicComponents/Avatar'
+  import Divider from './BasicComponents/Divider.vue'
+  import Card from './BasicComponents/Card.vue'
   export default {
     name: 'userDetail',
     components: {
-      MapContainer
+      MapContainer,
+      Avatar,
+      Divider,
+      Card
     },
     data: () => ({
       user: {},
@@ -53,7 +57,6 @@
         getUserByUuid: GET_USER_BY_UUID,
       }),
       getLatitude() {
-        console.log('gett')
         return parseFloat(this.user.location.coordinates.latitude)
       },
       getLongitude() {
@@ -76,12 +79,10 @@
       },
     },  
     async beforeCreate () {
-      console.log('entra')
       this.uuid = this.$route.params.uuid
       var response = await axios.get(`http://localhost:5000/users/${this.uuid}`)
       this.user = response.data
       this.active = this.user.favorite
-      console.log('sale')
     }
   }
 </script>
