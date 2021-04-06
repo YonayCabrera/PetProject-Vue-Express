@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto" max-width="500">
+    <v-card class="mx-auto" max-width="800">
         <slot name="content" />
         <slot />
     </v-card>
