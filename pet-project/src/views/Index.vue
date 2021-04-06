@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-card
-    class="mx-auto"
-    max-width="500"
+    <card
   >
     <tool-bar>
       <basic-button name="showDetail" @onClick="showProfileDetails"></basic-button>
@@ -31,8 +29,7 @@
     <div id="filter">
       <text-field label="filter" :value="filterValue" icon="mdi-magnify" @valueOnChange="filterList"/>
     </div>
-      
-  </v-card>
+  </card>
   </div>
 </template>
 
@@ -43,7 +40,8 @@ import { FETCH_USERS } from '@/store/actions/actionTypes'
 import TextField from '../components/BasicComponents/TextField.vue';
 import Divider from '../components/BasicComponents/Divider.vue';
 import BasicButton from '../components/BasicComponents/BasicButton.vue';
-import ToolBar from '../components/BasicComponents/ToolBar.vue';
+import ToolBar from '@/components/BasicComponents/ToolBar.vue';
+import Card from '../components/BasicComponents/Card.vue';
   export default {
     name: 'Index',
     data: () => ({
@@ -56,7 +54,8 @@ import ToolBar from '../components/BasicComponents/ToolBar.vue';
       TextField,
       Divider,
       BasicButton,
-      ToolBar
+      ToolBar,
+      Card
     },
     methods: {
       filterList(value) {
