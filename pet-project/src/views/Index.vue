@@ -4,16 +4,9 @@
     class="mx-auto"
     max-width="500"
   >
-    <v-toolbar
-      color="pink"
-      dark
-    >
-      <v-btn>
-        <div @click="showProfileDetails">
-          button
-        </div>
-      </v-btn>
-    </v-toolbar>
+    <tool-bar>
+      <basic-button name="showDetail" @onClick="showProfileDetails"></basic-button>
+    </tool-bar>  
     <v-list
     style="max-height: 500px"
        class="overflow-y-auto">
@@ -30,23 +23,13 @@
             </template>
           </v-list-item>
 
-          <v-divider
-            v-if="index < itemsFiltered.length - 1"
-            :key="index"
-          ></v-divider>
+          <divider v-if="index < itemsFiltered.length - 1" :key="index"/>
         </template>
       </v-list-item-group>
     </v-list>
-    <v-divider
-    ></v-divider>
+    <divider />
     <div id="filter">
-      <v-text-field
-        v-model="filterValue"
-        label="Filter"
-        append-icon="mdi-magnify"
-        @input="filterList"
-        >
-      </v-text-field>
+      <text-field label="filter" :value="filterValue" icon="mdi-magnify" @valueOnChange="filterList"/>
     </div>
       
   </v-card>
@@ -57,6 +40,10 @@
 import axios from 'axios'
 import { mapActions } from 'vuex';
 import { FETCH_USERS } from '@/store/actions/actionTypes'
+import TextField from '../components/BasicComponents/TextField.vue';
+import Divider from '../components/BasicComponents/Divider.vue';
+import BasicButton from '../components/BasicComponents/BasicButton.vue';
+import ToolBar from '../components/BasicComponents/ToolBar.vue';
   export default {
     name: 'Index',
     data: () => ({
@@ -65,10 +52,16 @@ import { FETCH_USERS } from '@/store/actions/actionTypes'
       filterValue: '',
       itemsFiltered: []
     }),
+    components: {
+      TextField,
+      Divider,
+      BasicButton,
+      ToolBar
+    },
     methods: {
-      filterList() {
+      filterList(value) {
         this.itemsFiltered = this.items.filter(x => {
-          if(x.gender.toLowerCase().includes(this.filterValue.toLowerCase()) || x.dob.age.toString().includes(this.filterValue.toLowerCase()) || x.nat.toLowerCase().includes(this.filterValue.toLowerCase())) return x
+          if(x.gender.toLowerCase().includes(value.toLowerCase()) || x.dob.age.toString().includes(value.toLowerCase()) || x.nat.toLowerCase().includes(value.toLowerCase())) return x
         })
       },
       ...mapActions({
