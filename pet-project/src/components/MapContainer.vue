@@ -6,7 +6,7 @@
       ref="popup"
       v-show="currentCoordinate"
     >
-      <span class="icon-close" @click="closePopup">✖</span>
+      <span class="icon-close" @click="onClosePopup">✖</span>
       <div class="content">{{currentCoordinate}}</div>
     </div>
   </div>
@@ -14,12 +14,7 @@
  
 <script>
 import 'ol/ol.css'
-import { Map, View } from 'ol'
-import Tile from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
-import { toStringHDMS } from 'ol/coordinate'
-import { toLonLat } from 'ol/proj'
-import Overlay from 'ol/Overlay'
+import { initMap, closePopup, createOverlay, setCoordinates } from '../utils/initMap'
  
 export default {
   name: 'MapContainer',
@@ -36,32 +31,13 @@ export default {
   },
   methods: {
     initMap () {
-      this.overlay = new Overlay({
-                 element: this.$refs.popup,
-                 autoPan: true
-      })
-      this.map = new Map({
-        target: 'map',
-        layers: [
-          new Tile({
-            source: new OSM()
-          })
-        ],
-        overlays: [this.overlay],
-        view: new View({
-          center: [this.latitude, this.longitude],
-          zoom: 6
-        })
-      })
-      const coordinate = [this.latitude, this.longitude]
-      const hdms = toStringHDMS(toLonLat(coordinate))
-      this.currentCoordinate = hdms
-      setTimeout(() => {
-        this.overlay.setPosition(coordinate)
-      }, 0)
+      this.overlay = createOverlay(this.$refs.popup)
+      this.map = initMap('map', this.overlay, this.longitude, this.latitude)
+      setCoordinates(this.overlay, this.longitude, this.latitude)
+      this.currentCoordinate = [this.longitude, this.latitude]
     },
-    closePopup () {
-      this.overlay.setPosition(undefined)
+    onClosePopup () {
+      closePopup(this.overlay)
       this.currentCoordinate = null
     }
   },

@@ -15,6 +15,7 @@ import axios from 'axios'
 import Divider from './BasicComponents/Divider.vue'
 import Card from './BasicComponents/Card.vue'
 import BasicButton from '../components/BasicComponents/BasicButton.vue';
+import exportToCsv from '../utils/exportToCsv'
 export default {
   name: 'ExportCsv',
 	data() {
@@ -34,13 +35,7 @@ export default {
 			]
 			
 			this.users.forEach(user => rows.push([user.gender, user.name.first + " " + user.name.last, user.nat, user.dob.date, user.registered.date]))
-			let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
-			var encodedUri = encodeURI(csvContent);
-			var link = document.createElement("a");
-			link.setAttribute("href", encodedUri);
-			link.setAttribute("download", "users_data.csv");
-			document.body.appendChild(link);
-			link.click();
+			exportToCsv(rows)
 		}
 	},
 	created() {

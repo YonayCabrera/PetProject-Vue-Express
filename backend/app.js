@@ -9,20 +9,9 @@ app.use(express.json({limit: '50mb'}));
 
 
 app.get('/favouriteUsers', (req, res) => {
-    var users = readFile('./favouriteUsers.txt');
-    res.json(users);
-});
-
-app.post('/favouriteUsers', (req, res) => {
-    var user = req.body;
-    var users = readFile('./favouriteUsers.txt');
-    if(users.find(u => u.login.uuid == user.login.uuid)) {
-        let otherUsers = users.filter(u => u.login.uuid != user.login.uuid)
-        fs.writeFileSync('./favouriteUsers.txt', JSON.stringify(otherUsers));
-    }else {
-        users.push(user);
-        fs.writeFileSync('./favouriteUsers.txt', JSON.stringify(users));
-     }
+    var users = readFile('./users.txt');
+    var favouriteUsers = users.filter(u => u.favorite == true)
+    res.json(favouriteUsers);
 });
 
 app.put('/users', (req, res) => {

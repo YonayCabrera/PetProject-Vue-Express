@@ -15,7 +15,7 @@
           <divider vertical/>
         </div>
         <div id="starIcon">
-          <v-icon @click="activeFavourite" :color="showColorFavourite"> mdi-star-outline </v-icon>
+          <icon @onClick="activeFavourite" :color="showColorFavourite" value="mdi-star-outline" />
         </div>
       </div>
       <divider/>
@@ -39,13 +39,15 @@
   import Avatar from './BasicComponents/Avatar'
   import Divider from './BasicComponents/Divider.vue'
   import Card from './BasicComponents/Card.vue'
+  import Icon from './BasicComponents/Icon.vue'
   export default {
     name: 'userDetail',
     components: {
       MapContainer,
       Avatar,
       Divider,
-      Card
+      Card,
+      Icon
     },
     data: () => ({
       user: {},
