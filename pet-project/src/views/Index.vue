@@ -1,7 +1,6 @@
 <template>
   <div>
-    <card
-  >
+    <card>
     <tool-bar>
       <basic-button name="showDetail" @onClick="showProfileDetails"></basic-button>
     </tool-bar>  
@@ -25,7 +24,6 @@ import Card from '../components/BasicComponents/Card.vue';
 import List from '../components/BasicComponents/List.vue';
 import {GET_USERS} from '@/store/getters/getterTypes'
 import { mapGetters } from 'vuex'
-
   export default {
     name: 'Index',
     data: () => ({
@@ -70,9 +68,11 @@ import { mapGetters } from 'vuex'
     async created () {
       await this.fetchUsers()
       if(this.getUsers.length > 0){
+        this.items=this.getUsers
         this.itemsFiltered = this.getUsers 
       }else {
         await this.fetchUsersFromApi()
+        this.items=this.getUsers
         this.itemsFiltered = this.getUsers  
       }
     }
