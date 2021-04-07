@@ -5,26 +5,7 @@
     <tool-bar>
       <basic-button name="showDetail" @onClick="showProfileDetails"></basic-button>
     </tool-bar>  
-    <v-list
-    style="max-height: 500px"
-       class="overflow-y-auto">
-      <v-list-item-group
-        v-model="selected"
-        active-class="pink--text"
-      >
-        <template v-for="(item, index) in itemsFiltered">
-          <v-list-item :key="item.login.uuid">
-            <template>
-              <v-list-item-content>
-                {{item.gender}}, {{item.name.first}} {{item.name.last}}, {{item.email}}, {{item.nat}}, {{item.dob.date}}, {{item.dob.age}}, {{item.registered.date}}
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-
-          <divider v-if="index < itemsFiltered.length - 1" :key="index"/>
-        </template>
-      </v-list-item-group>
-    </v-list>
+    <list :items="itemsFiltered" @selectedValue="selectedValue"/>
     <divider />
     <div id="filter">
       <text-field label="filter" :value="filterValue" icon="mdi-magnify" @valueOnChange="filterList"/>
@@ -41,6 +22,7 @@ import Divider from '../components/BasicComponents/Divider.vue';
 import BasicButton from '../components/BasicComponents/BasicButton.vue';
 import ToolBar from '@/components/BasicComponents/ToolBar.vue';
 import Card from '../components/BasicComponents/Card.vue';
+import List from '../components/BasicComponents/List.vue';
 import {GET_USERS} from '@/store/getters/getterTypes'
 import { mapGetters } from 'vuex'
 
@@ -57,7 +39,8 @@ import { mapGetters } from 'vuex'
       Divider,
       BasicButton,
       ToolBar,
-      Card
+      Card,
+      List
     },
     computed: {
       ...mapGetters({
@@ -69,6 +52,9 @@ import { mapGetters } from 'vuex'
         this.itemsFiltered = this.items.filter(x => {
           if(x.gender.toLowerCase().includes(value.toLowerCase()) || x.dob.age.toString().includes(value.toLowerCase()) || x.nat.toLowerCase().includes(value.toLowerCase())) return x
         })
+      },
+      selectedValue(value){
+        this.selected = value
       },
       ...mapActions({
         fetchUsers: FETCH_USERS,
