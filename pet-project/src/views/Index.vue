@@ -34,14 +34,16 @@
 </template>
 
 <script>
-import restClient from '../utils/restClient'
 import { mapActions } from 'vuex';
-import { FETCH_USERS } from '@/store/actions/actionTypes'
+import { FETCH_USERS, FETCH_USERS_FROM_API } from '@/store/actions/actionTypes'
 import TextField from '../components/BasicComponents/TextField.vue';
 import Divider from '../components/BasicComponents/Divider.vue';
 import BasicButton from '../components/BasicComponents/BasicButton.vue';
 import ToolBar from '@/components/BasicComponents/ToolBar.vue';
 import Card from '../components/BasicComponents/Card.vue';
+import {GET_USERS} from '@/store/getters/getterTypes'
+import { mapGetters } from 'vuex'
+
   export default {
     name: 'Index',
     data: () => ({
@@ -57,6 +59,11 @@ import Card from '../components/BasicComponents/Card.vue';
       ToolBar,
       Card
     },
+    computed: {
+      ...mapGetters({
+        getUsers: GET_USERS,
+      }),
+    },  
     methods: {
       filterList(value) {
         this.itemsFiltered = this.items.filter(x => {
@@ -64,7 +71,8 @@ import Card from '../components/BasicComponents/Card.vue';
         })
       },
       ...mapActions({
-        fetchUsers: FETCH_USERS
+        fetchUsers: FETCH_USERS,
+        fetchUsersFromApi: FETCH_USERS_FROM_API
       }),
       showProfileDetails() {
         if(this.itemsFiltered[this.selected] != undefined) {
@@ -73,22 +81,14 @@ import Card from '../components/BasicComponents/Card.vue';
         }
       }
     },
-    created () {
-      restClient().get('http://localhost:5000/users').then(response => {
-        if(response.data.length > 0) {
-          this.items = response.data
-          this.itemsFiltered = this.items
-          this.fetchUsers(this.items)
-        }else {
-          restClient().get('https://randomuser.me/api/?results=100')
-          .then((response) => {
-            this.items = response.data.results
-            this.itemsFiltered = this.items
-            restClient().post('http://localhost:5000/users', this.itemsFiltered)
-            this.fetchUsers(this.items)
-          });
-        }
-      })
+    async created () {
+      await this.fetchUsers()
+      if(this.getUsers.length > 0){
+        this.itemsFiltered = this.getUsers 
+      }else {
+        await this.fetchUsersFromApi()
+        this.itemsFiltered = this.getUsers  
+      }
     }
   }
 </script>

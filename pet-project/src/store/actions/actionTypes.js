@@ -1,2 +1,3 @@
 export const FETCH_USERS = 'FETCH_USERS'
+export const FETCH_USERS_FROM_API = 'FETCH_USERS_FROM_API'
 export const FETCH_LOADING = 'FETCH_LOADING'
