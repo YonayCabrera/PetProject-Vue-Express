@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import restClient from '../utils/restClient'
 import Divider from './BasicComponents/Divider.vue'
 import Card from './BasicComponents/Card.vue'
 import BasicButton from '../components/BasicComponents/BasicButton.vue';
@@ -39,7 +39,7 @@ export default {
 		}
 	},
 	created() {
-		axios.get('http://localhost:5000/favouriteUsers').then(response => this.users = response.data)
+		restClient().get('http://localhost:5000/favouriteUsers').then(response => this.users = response.data)
 	}
 }
 </script>

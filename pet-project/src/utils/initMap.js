@@ -17,7 +17,7 @@ export function initMap(target, overlay, longitude, latitude) {
         overlays: [overlay],
         view: new View({
           center: fromLonLat([longitude, latitude]),
-          zoom: 6
+          zoom: 3
         })
       })
 }

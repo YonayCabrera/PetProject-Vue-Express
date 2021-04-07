@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import restClient from '../utils/restClient'
 import { mapActions } from 'vuex';
 import { FETCH_USERS } from '@/store/actions/actionTypes'
 import TextField from '../components/BasicComponents/TextField.vue';
@@ -74,17 +74,17 @@ import Card from '../components/BasicComponents/Card.vue';
       }
     },
     created () {
-      axios.get('http://localhost:5000/users').then(response => {
+      restClient().get('http://localhost:5000/users').then(response => {
         if(response.data.length > 0) {
           this.items = response.data
           this.itemsFiltered = this.items
           this.fetchUsers(this.items)
         }else {
-          axios.get('https://randomuser.me/api/?results=100')
+          restClient().get('https://randomuser.me/api/?results=100')
           .then((response) => {
             this.items = response.data.results
             this.itemsFiltered = this.items
-            axios.post('http://localhost:5000/users', this.itemsFiltered)
+            restClient().post('http://localhost:5000/users', this.itemsFiltered)
             this.fetchUsers(this.items)
           });
         }

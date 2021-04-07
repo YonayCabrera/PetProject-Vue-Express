@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import restClient from '../utils/restClient'
   import { mapGetters } from 'vuex'
   import {GET_USER_BY_UUID} from '@/store/getters/getterTypes'
   import MapContainer from './MapContainer'
@@ -76,15 +76,17 @@
         }else {
           this.user.favorite = true
         }
-        axios.put('http://localhost:5000/users', this.user)
+        restClient().put('http://localhost:5000/users', this.user)
         this.active = this.user.favorite
       },
     },  
     async beforeCreate () {
       this.uuid = this.$route.params.uuid
-      var response = await axios.get(`http://localhost:5000/users/${this.uuid}`)
-      this.user = response.data
-      this.active = this.user.favorite
+      restClient().get(`http://localhost:5000/users/${this.uuid}`)
+        .then(response => {
+          this.user = response.data
+          this.active = this.user.favorite
+        })
     }
   }
 </script>
