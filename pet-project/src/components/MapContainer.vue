@@ -13,7 +13,6 @@
 </template>
  
 <script>
-import 'ol/ol.css'
 import { initMap, closePopup, createOverlay, setCoordinates } from '../utils/initMap'
  
 export default {
