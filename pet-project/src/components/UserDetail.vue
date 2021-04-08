@@ -117,4 +117,34 @@
   #divider {
     margin: center;
   }
+
+  @media screen and (max-width: 768px) {
+    #header{
+      display: grid;
+      grid-template-columns: 2fr 8px 0.5fr 8px 0.5fr;
+      grid-template-areas: 
+      "map divider avatar divider2 icon"
+    }
+
+    #map {
+      grid-area: map;
+    }
+    #avatar {
+      grid-area: avatar;
+    }
+
+    
+    #divider {
+      margin: center;
+      grid-area: divider;
+    }
+    
+    #divider {
+      margin: center;
+      grid-area: divider2;
+    }
+    #starIcon {
+      grid-area: icon;
+    }
+  }
 </style>
