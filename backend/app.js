@@ -42,7 +42,7 @@ app.get('/users/:uuid', (req, res) => {
 app.post('/users', (req, res) => {
     var user = req.body;
     var users = readFile('./users.txt');
-    if(users.length > 0) {
+    if(users && users.length > 0) {
         return;
     }else {
         fs.writeFileSync('./users.txt', JSON.stringify(user));
@@ -55,5 +55,9 @@ app.listen(5000, (error) => {
 })
 
 function readFile(file) {
-    return JSON.parse(fs.readFileSync(file, 'utf8'));
+    var fileReaded = fs.readFileSync(file, 'utf8')
+    if(fileReaded == '') {
+        return [];
+    }
+    return JSON.parse(fileReaded)
 }
