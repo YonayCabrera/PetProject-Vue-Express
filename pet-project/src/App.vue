@@ -11,6 +11,7 @@
         </v-btn>
       </div>
     </app-bar> 
+    <loading :visible="getLoading" color="#001392" />
       <router-view/>
     </v-main>
   </v-app>
@@ -19,11 +20,15 @@
 <script>
 import Icon from '@/components/BasicComponents/Icon.vue';
 import AppBar from '@/components/BasicComponents/AppBar.vue';
+import Loading from './components/BasicComponents/Loading.vue';
+import { GET_LOADING } from '@/store/getters/getterTypes'
+import { mapGetters } from 'vuex';
 export default {
   name: 'App',
   components: {
     AppBar,
-    Icon
+    Icon,
+    Loading
   },
   methods: {
     goToInitialPage() {
@@ -32,7 +37,12 @@ export default {
     exportToCsv() {
       this.$router.push({ name: 'ExportCsv' })
     }
-  }
+  },
+  computed: {
+    ...mapGetters({
+        getLoading: GET_LOADING,
+      }),
+  },
 };
 </script>
 
