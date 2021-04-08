@@ -1,10 +1,13 @@
 # pet-project
 
-## Project setup
+## Front-end #####
+
+```
+cd pet-project
+```
 ```
 npm install
 ```
-
 ### Compiles and hot-reloads for development
 ```
 npm run serve
@@ -18,6 +21,8 @@ npm run build
 ### Run your unit tests
 ```
 npm run test:unit
+o
+npm run unit
 ```
 
 ### Lints and fixes files
@@ -25,5 +30,14 @@ npm run test:unit
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Back-end #####
+```
+cd backend
+```
+```
+npm install
+```
+### Compiles and hot-reloads for development
+```
+npm run start
+```
