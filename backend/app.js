@@ -24,7 +24,7 @@ app.put('/users', (req, res) => {
     }else {
         users.push(user);
         fs.writeFileSync('./users.txt', JSON.stringify(users));
-     }
+    }
 });
 
 app.get('/users', (req, res) => {

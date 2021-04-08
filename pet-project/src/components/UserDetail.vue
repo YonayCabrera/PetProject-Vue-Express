@@ -32,14 +32,13 @@
 </template>
 
 <script>
-  import restClient from '../utils/restClient'
-  import { mapGetters } from 'vuex'
-  import {GET_USER_BY_UUID} from '@/store/getters/getterTypes'
   import MapContainer from './MapContainer'
   import Avatar from './BasicComponents/Avatar'
   import Divider from './BasicComponents/Divider.vue'
   import Card from './BasicComponents/Card.vue'
   import Icon from './BasicComponents/Icon.vue'
+  import { mapActions } from 'vuex';
+  import { GET_USERS_BY_UUID, SET_FAVOURITE_USER_PROPERTY } from '@/store/actions/actionTypes'
   export default {
     name: 'userDetail',
     components: {
@@ -55,9 +54,6 @@
       active: false,
     }),
     computed: {
-      ...mapGetters({
-        getUserByUuid: GET_USER_BY_UUID,
-      }),
       getLatitude() {
         return parseFloat(this.user.location.coordinates.latitude)
       },
@@ -70,23 +66,25 @@
       }
     },
     methods: {
+      ...mapActions({
+        getUserByUuid: GET_USERS_BY_UUID,
+        setFavouriteUserProperty: SET_FAVOURITE_USER_PROPERTY
+      }),
       activeFavourite() {
         if(this.user.favorite) {
           this.user.favorite = false
         }else {
           this.user.favorite = true
         }
-        restClient().put('http://localhost:5000/users', this.user)
+        this.setFavouriteUserProperty(this.user)
         this.active = this.user.favorite
       },
     },  
-    async beforeCreate () {
+    async created () {
       this.uuid = this.$route.params.uuid
-      restClient().get(`http://localhost:5000/users/${this.uuid}`)
-        .then(response => {
-          this.user = response.data
-          this.active = this.user.favorite
-        })
+      var response = await this.getUserByUuid(this.uuid)
+      this.user = response
+      this.active = response.favorite
     }
   }
 </script>
