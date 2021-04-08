@@ -8,7 +8,6 @@ import List from '@/components/BasicComponents/List.vue'
 import BasicButton from '@/components/BasicComponents/BasicButton.vue'
 import TextField from '@/components/BasicComponents/TextField.vue'
 
-const router = new VueRouter()
 
 describe('Index.vue', () => {
   function setUp ({
@@ -41,10 +40,6 @@ describe('Index.vue', () => {
       actions
     }
   }
-
-  beforeEach(() => {
-    router.push = jest.fn()
-  })
 
   test('load index.vue', () => {
     const fetchUsers = jest.fn()
