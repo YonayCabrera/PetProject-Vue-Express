@@ -70,7 +70,7 @@
         getUserByUuid: GET_USERS_BY_UUID,
         setFavouriteUserProperty: SET_FAVOURITE_USER_PROPERTY
       }),
-      activeFavourite() {
+      async activeFavourite() {
         if(this.user.favorite) {
           this.user.favorite = false
         }else {

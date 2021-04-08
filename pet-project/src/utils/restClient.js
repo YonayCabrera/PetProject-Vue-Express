@@ -5,11 +5,11 @@ export default function restClient() {
     }
 
     function post(url, body) {
-        return axios.post(url,body)
+        axios.post(url,body)
     }
 
     function put(url, body) {
-        return axios.put(url,body)
+        axios.put(url,body)
     }
 
     return {

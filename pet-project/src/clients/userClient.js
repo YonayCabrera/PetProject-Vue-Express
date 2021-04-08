@@ -19,12 +19,17 @@ export default function userClient (restClient) {
   function getFavouriteUsers() {
     return restClient().get('http://localhost:5000/favouriteUsers')
   }
+  
+  function saveUsers(users) {
+    restClient().post('http://localhost:5000/users', users)
+  }
 
   return {
     getUsers,
     updateUser,
     getUsersFromExternalApi,
     getUsersByUuid,
-    getFavouriteUsers
+    getFavouriteUsers,
+    saveUsers
   }
 }

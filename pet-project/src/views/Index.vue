@@ -14,7 +14,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { FETCH_USERS, FETCH_USERS_FROM_API } from '@/store/actions/actionTypes'
+import { FETCH_USERS, FETCH_USERS_FROM_API, SAVE_USERS } from '@/store/actions/actionTypes'
 import TextField from '../components/BasicComponents/TextField.vue';
 import Divider from '../components/BasicComponents/Divider.vue';
 import ToolBar from '@/components/BasicComponents/ToolBar.vue';
@@ -49,7 +49,8 @@ import { mapGetters } from 'vuex'
       },
       ...mapActions({
         fetchUsers: FETCH_USERS,
-        fetchUsersFromApi: FETCH_USERS_FROM_API
+        fetchUsersFromApi: FETCH_USERS_FROM_API,
+        saveUsers: SAVE_USERS
       }),
       showProfileDetails(value) {
         if(this.itemsFiltered[value] != undefined) {
@@ -66,7 +67,8 @@ import { mapGetters } from 'vuex'
       }else {
         await this.fetchUsersFromApi()
         this.items=this.getUsers
-        this.itemsFiltered = this.getUsers  
+        this.itemsFiltered = this.getUsers
+        this.saveUsers(this.items)
       }
     }
   }
