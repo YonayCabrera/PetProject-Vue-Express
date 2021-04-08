@@ -14,7 +14,7 @@
 import Divider from './BasicComponents/Divider.vue'
 import Card from './BasicComponents/Card.vue'
 import BasicButton from '../components/BasicComponents/BasicButton.vue';
-import exportToCsv from '../utils/exportToCsv'
+import { exportToCsv } from '@/utils/exportToCsv'
 import { mapActions } from 'vuex';
 import { GET_FAVOURITE_USERS } from '@/store/actions/actionTypes'
 export default {
@@ -38,7 +38,7 @@ export default {
 				["gender", "name", "nationality", "birthDate", "registerDate"] 
 			]
 			this.users.forEach(user => rows.push([user.gender, user.name.first + " " + user.name.last, user.nat, user.dob.date, user.registered.date]))
-			exportToCsv(rows)
+			exportToCsv.execute(rows)
 		}
 	},
 	created() {

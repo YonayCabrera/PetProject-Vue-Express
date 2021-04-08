@@ -1,4 +1,5 @@
-export default function exportToCsv(rows) {
+
+const execute = (rows) => {
     let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
@@ -7,3 +8,11 @@ export default function exportToCsv(rows) {
     document.body.appendChild(link);
     link.click();
 }
+
+function exportCsv() {
+    return {
+        execute
+    }
+}
+
+export const exportToCsv = exportCsv()

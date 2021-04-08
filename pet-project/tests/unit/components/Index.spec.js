@@ -36,8 +36,7 @@ describe('Index.vue', () => {
 
     return {
       wrapper,
-      router,
-      actions
+      router
     }
   }
 
