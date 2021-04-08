@@ -9,7 +9,7 @@
           <divider vertical/>
         </div>
         <div id="map">
-          <MapContainer :latitude="getLatitude" :longitude="getLongitude"></MapContainer>
+          <map-container :latitude="getLatitude" :longitude="getLongitude"></map-container>
         </div>
         <div id="divider">
           <divider vertical/>
