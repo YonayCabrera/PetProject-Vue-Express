@@ -15,11 +15,16 @@ export default function userClient (restClient) {
   function updateUser(user) {
     restClient().put('http://localhost:5000/users', user)
   }
+  
+  function getFavouriteUsers() {
+    return restClient().get('http://localhost:5000/favouriteUsers')
+  }
 
   return {
     getUsers,
     updateUser,
     getUsersFromExternalApi,
-    getUsersByUuid
+    getUsersByUuid,
+    getFavouriteUsers
   }
 }

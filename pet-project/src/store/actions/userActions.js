@@ -1,4 +1,4 @@
-import { FETCH_USERS, FETCH_USERS_FROM_API, GET_USERS_BY_UUID, SET_FAVOURITE_USER_PROPERTY } from './actionTypes'
+import { FETCH_USERS, FETCH_USERS_FROM_API, GET_USERS_BY_UUID, SET_FAVOURITE_USER_PROPERTY, GET_FAVOURITE_USERS } from './actionTypes'
 import {SET_USERS, SET_LOADING} from '../mutations/mutationTypes'
 import {usersClient} from '../../clients/restClientFactory'
 
@@ -25,5 +25,11 @@ export default {
         commit(SET_LOADING, true)
         usersClient.updateUser(user)
         commit(SET_LOADING, false)
+    },
+    [GET_FAVOURITE_USERS]: async ({commit}) => {
+        commit(SET_LOADING, true)
+        var response = await usersClient.getFavouriteUsers()
+        commit(SET_LOADING, false)
+        return response.data
     }
 }

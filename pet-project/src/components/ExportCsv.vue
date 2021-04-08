@@ -11,11 +11,12 @@
 </template>
 
 <script>
-import restClient from '../utils/restClient'
 import Divider from './BasicComponents/Divider.vue'
 import Card from './BasicComponents/Card.vue'
 import BasicButton from '../components/BasicComponents/BasicButton.vue';
 import exportToCsv from '../utils/exportToCsv'
+import { mapActions } from 'vuex';
+import { GET_FAVOURITE_USERS } from '@/store/actions/actionTypes'
 export default {
   name: 'ExportCsv',
 	data() {
@@ -29,17 +30,19 @@ export default {
 		BasicButton
 	},
 	methods: {
+		...mapActions({
+			getFavouriteUsers: GET_FAVOURITE_USERS,
+		}),
 		exportCsv() {
 			let rows = [
 				["gender", "name", "nationality", "birthDate", "registerDate"] 
 			]
-			
 			this.users.forEach(user => rows.push([user.gender, user.name.first + " " + user.name.last, user.nat, user.dob.date, user.registered.date]))
 			exportToCsv(rows)
 		}
 	},
 	created() {
-		restClient().get('http://localhost:5000/favouriteUsers').then(response => this.users = response.data)
+		this.getFavouriteUsers().then(response => this.users = response)
 	}
 }
 </script>
