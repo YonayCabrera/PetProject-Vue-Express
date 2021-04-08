@@ -1,5 +1,17 @@
 # pet-project
 
+## Back-end #####
+```
+cd backend
+```
+```
+npm install
+```
+### Compiles and hot-reloads for development
+```
+npm run start
+```
+
 ## Front-end #####
 
 ```
@@ -28,16 +40,4 @@ npm run unit
 ### Lints and fixes files
 ```
 npm run lint
-```
-
-## Back-end #####
-```
-cd backend
-```
-```
-npm install
-```
-### Compiles and hot-reloads for development
-```
-npm run start
 ```
