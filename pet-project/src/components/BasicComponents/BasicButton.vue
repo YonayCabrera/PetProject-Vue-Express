@@ -1,5 +1,5 @@
 <template>
-    <v-btn>
+    <v-btn :color="color">
         <div @click="onClick">
           {{name}}
         </div>
@@ -10,7 +10,8 @@
 export default {
     name: 'BasicButton',
     props: {
-        name: { type: String, default: '' }
+        name: { type: String, default: '' },
+        color: { type: String, default: '#F1F3F5' }
     },
     methods: {
         onClick() {

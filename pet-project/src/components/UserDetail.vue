@@ -1,6 +1,6 @@
 <template>
   <div>
-    <card v-if="user.login">
+    <card id="card" v-if="user.login">
       <div id="header">
         <div id="avatar">
           <avatar :src="user.picture.thumbnail"></avatar>
@@ -15,7 +15,7 @@
           <divider vertical/>
         </div>
         <div id="starIcon">
-          <icon @onClick="activeFavourite" :color="showColorFavourite" value="mdi-star-outline" />
+          <icon @onClick="activeFavourite" :color="showColorFavourite" size="80" value="mdi-star-outline" />
         </div>
       </div>
       <divider/>
@@ -90,6 +90,10 @@
 </script>
 
 <style scoped>
+  #card {
+    margin-top: 48px;
+  }
+
   #header{
     display: grid;
     grid-template-columns: 1fr 8px 2fr 8px 1fr;

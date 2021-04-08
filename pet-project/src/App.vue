@@ -2,8 +2,14 @@
   <v-app>
     <v-main>
     <app-bar> 
-    <basic-button name="inicio" @onClick="goToInitialPage"></basic-button>
-    <basic-button name="exportToCsv" @onClick="exportToCsv"></basic-button>
+      <div id="appBar">
+        <v-btn text fab color="#F1F3F5">
+          <icon @onClick="goToInitialPage" value="dashboard" />
+        </v-btn>
+        <v-btn text fab color="#F1F3F5">
+          <icon @onClick="exportToCsv" value="download" />
+        </v-btn>
+      </div>
     </app-bar> 
       <router-view/>
     </v-main>
@@ -11,13 +17,13 @@
 </template>
 
 <script>
-import BasicButton from '@/components/BasicComponents/BasicButton.vue';
+import Icon from '@/components/BasicComponents/Icon.vue';
 import AppBar from '@/components/BasicComponents/AppBar.vue';
 export default {
   name: 'App',
   components: {
-    BasicButton,
-    AppBar
+    AppBar,
+    Icon
   },
   methods: {
     goToInitialPage() {
@@ -29,3 +35,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+#appBar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+</style>

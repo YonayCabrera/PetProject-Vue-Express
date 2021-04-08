@@ -1,7 +1,7 @@
 <template>
     <v-app-bar
       app
-      color="primary"
+      color="#001392"
       dark
     >
     <slot name="content" />

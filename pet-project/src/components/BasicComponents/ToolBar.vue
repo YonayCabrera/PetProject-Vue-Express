@@ -1,6 +1,6 @@
 <template>
     <v-toolbar
-      color="primary"
+      :color="color"
       dark
     >
     <slot name="content" />
@@ -10,6 +10,9 @@
 
 <script>
 export default {
-    name: 'ToolBar'
+    name: 'ToolBar',
+    props: {
+      color: {type: String, default: 'primary'}
+    }
 }
 </script>

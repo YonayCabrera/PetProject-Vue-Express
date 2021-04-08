@@ -5,7 +5,6 @@ import Index from '@/views/Index.vue'
 import { FETCH_USERS, FETCH_USERS_FROM_API } from '@/store/actions/actionTypes'
 import { GET_USERS } from '@/store/getters/getterTypes'
 import List from '@/components/BasicComponents/List.vue'
-import BasicButton from '@/components/BasicComponents/BasicButton.vue'
 import TextField from '@/components/BasicComponents/TextField.vue'
 
 
@@ -56,8 +55,6 @@ describe('Index.vue', () => {
     const { wrapper, router } = setUp({getters})
     await new Promise(resolve => setImmediate(resolve))
     wrapper.findComponent(List).vm.$emit('selectedValue', 0)
-
-    wrapper.findComponent(BasicButton).vm.$emit('onClick')
 
     expect(router.push).toHaveBeenCalledWith({ name: 'userDetail', params: { uuid: 2 } })
   })

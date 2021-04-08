@@ -1,13 +1,12 @@
 <template>
   <div>
-    <card>
-    <tool-bar>
-      <basic-button name="showDetail" @onClick="showProfileDetails"></basic-button>
+    <card id="card">
+    <tool-bar color="#001392">
     </tool-bar>  
-    <list :items="itemsFiltered" @selectedValue="selectedValue"/>
+    <list :items="itemsFiltered" @selectedValue="showProfileDetails"/>
     <divider />
     <div id="filter">
-      <text-field label="filter" :value="filterValue" icon="mdi-magnify" @valueOnChange="filterList"/>
+      <text-field label="filter by gender, age or nat" :value="filterValue" icon="mdi-magnify" @valueOnChange="filterList"/>
     </div>
   </card>
   </div>
@@ -18,7 +17,6 @@ import { mapActions } from 'vuex';
 import { FETCH_USERS, FETCH_USERS_FROM_API } from '@/store/actions/actionTypes'
 import TextField from '../components/BasicComponents/TextField.vue';
 import Divider from '../components/BasicComponents/Divider.vue';
-import BasicButton from '../components/BasicComponents/BasicButton.vue';
 import ToolBar from '@/components/BasicComponents/ToolBar.vue';
 import Card from '../components/BasicComponents/Card.vue';
 import List from '../components/BasicComponents/List.vue';
@@ -28,14 +26,12 @@ import { mapGetters } from 'vuex'
     name: 'Index',
     data: () => ({
       items: [],
-      selected: undefined,
       filterValue: '',
       itemsFiltered: []
     }),
     components: {
       TextField,
       Divider,
-      BasicButton,
       ToolBar,
       Card,
       List
@@ -51,16 +47,13 @@ import { mapGetters } from 'vuex'
           if(x.gender.toLowerCase().includes(value.toLowerCase()) || x.dob.age.toString().includes(value.toLowerCase()) || x.nat.toLowerCase().includes(value.toLowerCase())) return x
         })
       },
-      selectedValue(value){
-        this.selected = value
-      },
       ...mapActions({
         fetchUsers: FETCH_USERS,
         fetchUsersFromApi: FETCH_USERS_FROM_API
       }),
-      showProfileDetails() {
-        if(this.itemsFiltered[this.selected] != undefined) {
-          var uuid = this.itemsFiltered[this.selected].login.uuid
+      showProfileDetails(value) {
+        if(this.itemsFiltered[value] != undefined) {
+          var uuid = this.itemsFiltered[value].login.uuid
           this.$router.push({ name: 'userDetail', params: { uuid: uuid } })
         }
       }
@@ -81,7 +74,10 @@ import { mapGetters } from 'vuex'
 
 <style scoped>
 #filter {
-  margin-left: 16px;
-  margin-right: 16px;
+  margin: 0 16px;
+}
+
+#card {
+  margin-top: 48px;
 }
 </style>

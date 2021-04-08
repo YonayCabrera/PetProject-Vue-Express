@@ -1,11 +1,13 @@
 <template>
     <div>
-        <card>
+        <card id="card">
 			<div id="personalData" v-for="user in users" :key="user.uuid">
 				{{user.gender}}, {{user.name.first}} {{user.name.last}}, {{user.nat}}, {{user.dob.date}}, {{user.registered.date}}
 			</div>
 			<divider />
-			<basic-button name="exportDataIntoCsv" @onClick="exportCsv"></basic-button>
+			<div id="exportButtonContainer">
+				<basic-button color="#00BB91" name="exportDataIntoCsv" @onClick="exportCsv"></basic-button>
+			</div>
         </card>
    </div>
 </template>
@@ -49,6 +51,16 @@ export default {
 
 <style scoped>
 #personalData {
+	padding: 16px;
+}
+
+#card {
+	margin-top: 48px;
+}
+
+#exportButtonContainer {
+	display: flex;
+	justify-content: flex-end;
 	padding: 16px;
 }
 </style>
