@@ -24,7 +24,7 @@ export function initMap(target, overlay, longitude, latitude) {
 export function setCoordinates(overlay, longitude, latitude) {
     const coordinate = [longitude, latitude]
     setTimeout(() => {
-    overlay.setPosition(fromLonLat(coordinate))
+    overlay.setPosition(fromLonLat(coordinate), 'EPSG:3857')
     }, 0)
 }
 

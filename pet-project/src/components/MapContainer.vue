@@ -33,7 +33,7 @@ export default {
       this.overlay = createOverlay(this.$refs.popup)
       this.map = initMap('map', this.overlay, this.longitude, this.latitude)
       setCoordinates(this.overlay, this.longitude, this.latitude)
-      this.currentCoordinate = [this.longitude, this.latitude]
+      this.currentCoordinate = [this.latitude, this.longitude]
     },
     onClosePopup () {
       closePopup(this.overlay)
