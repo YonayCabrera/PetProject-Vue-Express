@@ -1,6 +1,6 @@
 <template>
     <v-btn id="button" :color="color" @click="onClick">
-          {{name}}
+        {{name}}
     </v-btn>
 </template>
 
@@ -18,4 +18,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+#button {
+    color: #F1F3F5;
+}
+</style>
 

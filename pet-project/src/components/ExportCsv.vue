@@ -6,7 +6,7 @@
 			</div>
 			<divider />
 			<div id="exportButtonContainer">
-				<basic-button color="#00BB91" name="exportDataIntoCsv" @onClick="exportCsv"></basic-button>
+				<basic-button color="#00BB91" name="Export Data" @onClick="exportCsv"></basic-button>
 			</div>
         </card>
    </div>
