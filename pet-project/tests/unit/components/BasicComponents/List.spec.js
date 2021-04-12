@@ -22,6 +22,16 @@ describe('List.vue', () => {
     expect(wrapper.find("#content").text()).toBe(`${items[0].gender}, ${items[0].name.first} ${items[0].name.last}, ${items[0].email}, ${items[0].nat}, ${items[0].dob.date}, ${items[0].dob.age}, ${items[0].registered.date}`)
   })
 
+  test('select item of list', async () => {
+    var items = [givenAUser()]
+    const {wrapper} = setUp({ items })
+
+    wrapper.setData({selected: 0})
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.emitted().selectedValue).toEqual([[0]])
+  })
+
   function givenAUser() {
     return {
       gender:'female',  
