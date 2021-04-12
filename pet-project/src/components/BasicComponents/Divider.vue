@@ -1,5 +1,5 @@
 <template>
-    <v-divider :vertical="vertical"></v-divider>
+    <v-divider id="divider" :vertical="vertical"></v-divider>
 </template>
 
 <script>
