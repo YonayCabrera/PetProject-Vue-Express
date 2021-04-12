@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils'
 import Icon from '@/components/BasicComponents/Icon.vue'
 
 
-describe('BasicButton.vue', () => {
+describe('Icon.vue', () => {
   function setUp ({color = '', value = '', size = ''} = {}) {
 
     const wrapper = shallowMount(Icon, {
@@ -28,7 +28,7 @@ describe('BasicButton.vue', () => {
     expect(wrapper.find("#icon").text()).toBe(value)
   })
 
-  test.only('emit event onclick Icon.vue', async () => {
+  test('emit event onclick Icon.vue', async () => {
     const {wrapper} = setUp()
     
     wrapper.find("#icon").trigger('click')
