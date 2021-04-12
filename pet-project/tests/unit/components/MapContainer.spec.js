@@ -24,5 +24,15 @@ describe('MapContainer.vue', () => {
   20.674
 ]`
     expect(wrapper.find(".content").text()).toBe(expectedCoordinate)
+    expect(wrapper.find(".popup").exists()).toBe(true)
+  })
+
+  test('close pop up', async () => {
+    const {wrapper} = setUp()
+
+    wrapper.find(".icon-close").trigger("click")
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(wrapper.find(".popup").exists()).toBe(false)
   })
 })

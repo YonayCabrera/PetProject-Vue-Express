@@ -4,7 +4,7 @@
     <div
       class="popup"
       ref="popup"
-      v-show="currentCoordinate"
+      v-if="currentCoordinate"
     >
       <span class="icon-close" @click="onClosePopup">✖</span>
       <div class="content">{{currentCoordinate}}</div>
