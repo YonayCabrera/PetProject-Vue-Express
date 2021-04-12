@@ -42,12 +42,26 @@ describe('Index.vue', () => {
   }
 
   test('load index.vue', () => {
+    const getters = {
+      [GET_USERS]: () => [ {login: {uuid: 2}}]
+    }
     const fetchUsers = jest.fn()
+    const fetchUsersFromApi = jest.fn()
     
-    const {wrapper} = setUp({ fetchUsers })
+    const {wrapper} = setUp({ fetchUsers, fetchUsersFromApi, getters })
 
     expect(wrapper.findComponent(List).props().items).toEqual([])
     expect(fetchUsers).toHaveBeenCalled()
+    expect(fetchUsersFromApi).not.toHaveBeenCalled()
+  })
+
+  test('fetch users from external Api', async () => {
+    const fetchUsersFromApi = jest.fn(() => Promise.reject)
+    
+    setUp({ fetchUsersFromApi })
+    await new Promise(resolve => setImmediate(resolve))
+
+    expect(fetchUsersFromApi).toHaveBeenCalled()
   })
 
   test('redirect to other url', async () => {
