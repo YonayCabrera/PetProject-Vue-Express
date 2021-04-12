@@ -4,7 +4,7 @@
     <div
       class="popup"
       ref="popup"
-      v-if="currentCoordinate"
+      v-show="currentCoordinate"
     >
       <span class="icon-close" @click="onClosePopup">✖</span>
       <div class="content">{{currentCoordinate}}</div>
@@ -40,7 +40,7 @@ export default {
       this.currentCoordinate = null
     }
   },
-  created () {
+  mounted () {
     this.initMap()
   }
 }

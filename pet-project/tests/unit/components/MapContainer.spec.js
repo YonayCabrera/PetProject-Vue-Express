@@ -18,6 +18,7 @@ describe('MapContainer.vue', () => {
 
   test('load MapContainer.vue', async () => {
     const {wrapper} = setUp()
+    await new Promise(resolve => setImmediate(resolve))
 
     var expectedCoordinate = `[
   19.876,
@@ -33,6 +34,6 @@ describe('MapContainer.vue', () => {
     wrapper.find(".icon-close").trigger("click")
     await new Promise(resolve => setImmediate(resolve))
 
-    expect(wrapper.find(".popup").exists()).toBe(false)
+    expect(wrapper.find(".popup").isVisible()).toBe(false)
   })
 })
