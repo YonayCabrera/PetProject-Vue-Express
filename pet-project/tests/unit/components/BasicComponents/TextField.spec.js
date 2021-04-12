@@ -30,4 +30,13 @@ describe('TextField.vue', () => {
     }
     expect(wrapper.find("#textField").props()).toMatchObject(expectedProps)
   })
+
+  test('emit on input value', async () => {
+    const value = "anyValue"
+    const {wrapper} = setUp()
+
+    wrapper.find("#textField").vm.$emit("input", value)
+
+    expect(wrapper.emitted().valueOnChange).toEqual([[value]])
+  })
 })
