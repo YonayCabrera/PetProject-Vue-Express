@@ -40,7 +40,7 @@ export default {
       this.currentCoordinate = null
     }
   },
-  mounted () {
+  created () {
     this.initMap()
   }
 }
