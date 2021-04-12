@@ -1,8 +1,6 @@
 <template>
-    <v-btn :color="color">
-        <div @click="onClick">
+    <v-btn id="button" :color="color" @click="onClick">
           {{name}}
-        </div>
     </v-btn>
 </template>
 
