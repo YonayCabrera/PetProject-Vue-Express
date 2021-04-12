@@ -1,5 +1,5 @@
 <template>
-    <v-icon @click="onClick" :size="size" :color="color"> {{value}} </v-icon>
+    <v-icon id="icon" @click="onClick" :size="size" :color="color"> {{value}} </v-icon>
 </template>
 
 <script>
