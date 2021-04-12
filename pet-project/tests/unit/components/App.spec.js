@@ -12,7 +12,6 @@ describe('Index.vue', () => {
     getters = { [GET_LOADING]: () => false}
   } = {}) {
     const localVue = createLocalVue()
-    localVue.use(Vuex)
     localVue.use(VueRouter)
     const router = new VueRouter()
     router.push = jest.fn()

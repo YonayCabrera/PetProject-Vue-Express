@@ -16,7 +16,6 @@ describe('Index.vue', () => {
     getters = { [GET_USERS]: () => []}
   } = {}) {
     const localVue = createLocalVue()
-    localVue.use(Vuex)
     localVue.use(VueRouter)
     const router = new VueRouter()
     const actions = {

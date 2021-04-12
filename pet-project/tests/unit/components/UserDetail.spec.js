@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import Vuex from 'vuex'
 import UserDetail from '@/components/UserDetail.vue'
 import { GET_USERS_BY_UUID, SET_FAVOURITE_USER_PROPERTY } from '@/store/actions/actionTypes'
@@ -12,8 +12,6 @@ describe('UserDetail.vue', () => {
     getUserByUuid = jest.fn(),
     setFavouriteUserProperty = jest.fn()
   } = {}) {
-    const localVue = createLocalVue()
-    localVue.use(Vuex)
     const actions = {
         [GET_USERS_BY_UUID]: getUserByUuid,
         [SET_FAVOURITE_USER_PROPERTY]: setFavouriteUserProperty
@@ -27,7 +25,6 @@ describe('UserDetail.vue', () => {
     }
     const wrapper = shallowMount(UserDetail, {
       store,
-      localVue,
       mocks: {
         $route: route,
       }
