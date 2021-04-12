@@ -3,6 +3,7 @@ module.exports = {
   transform: {
     "($ol).+\\.js$": "babel-jest"
   },
+  setupFiles: ['./tests/unit/setup.js'],
   transformIgnorePatterns: [
     "/node_modules/(?!ol)"
   ],
