@@ -1,5 +1,6 @@
 <template>
     <v-toolbar
+      id="toolbar"
       :color="color"
       dark
     >
