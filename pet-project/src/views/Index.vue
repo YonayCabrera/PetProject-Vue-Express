@@ -68,7 +68,7 @@ import { mapGetters } from 'vuex'
         await this.fetchUsersFromApi()
         this.items=this.getUsers
         this.itemsFiltered = this.getUsers
-        this.saveUsers(this.items)
+        await this.saveUsers(this.items)
       }
     }
   }
