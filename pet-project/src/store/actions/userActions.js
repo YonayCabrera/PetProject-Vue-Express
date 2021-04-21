@@ -21,11 +21,10 @@ export default {
         commit(SET_LOADING, false)
         return response.data
     },
-    [SET_FAVOURITE_USER_PROPERTY]: ({commit}, user) => {
+    [SET_FAVOURITE_USER_PROPERTY]: async ({commit}, user) => {
         commit(SET_LOADING, true)
-        usersClient.updateUser(user)
+        await usersClient.updateUser(user)
         commit(SET_LOADING, false)
-        return
     },
     [GET_FAVOURITE_USERS]: async ({commit}) => {
         commit(SET_LOADING, true)
@@ -35,7 +34,7 @@ export default {
     },
     [SAVE_USERS]: async ({commit}, users) => {
         commit(SET_LOADING, true)
-        usersClient.saveUsers(users)
+        await usersClient.saveUsers(users)
         commit(SET_LOADING, false)
     }
 }

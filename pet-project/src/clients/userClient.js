@@ -13,7 +13,7 @@ export default function userClient (restClient) {
   }
   
   function updateUser(user) {
-    restClient().put('http://localhost:5000/users', user)
+    return restClient().put('http://localhost:5000/users', user)
   }
   
   function getFavouriteUsers() {
@@ -21,7 +21,7 @@ export default function userClient (restClient) {
   }
   
   function saveUsers(users) {
-    restClient().post('http://localhost:5000/users', users)
+    return restClient().post('http://localhost:5000/users', users)
   }
 
   return {
