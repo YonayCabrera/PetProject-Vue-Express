@@ -76,7 +76,7 @@
         }else {
           this.user.favorite = true
         }
-        this.setFavouriteUserProperty(this.user)
+        await this.setFavouriteUserProperty(this.user)
         this.active = this.user.favorite
       },
     },  
